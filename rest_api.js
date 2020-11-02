@@ -13,8 +13,6 @@ const querychaincode = require("./fabric_node_sdk_helper/query");
 const invokechaincode = require("./fabric_node_sdk_helper/invoke");
 const { load_certificates_from_wallet } = require("./fileread");
 const { sqlite_json_insert } = require("./db_query");
-const { check_login_and_load_certificates } = require("./db_query");
-const { db_query } = require("./db_query");
 
 // Global variables;
 
