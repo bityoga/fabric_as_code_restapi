@@ -1,131 +1,89 @@
 # fabric_as_code_restapi
 
-## Curl Examples
+# Rest API Usage Instructions
 
-### 1) Get Authentication token
+[Rest API Usage Instructions with curl examples](curl_instructions/README.md)
 
-- **Api endpoint :** /jwt
-- **Required Post Data :** Rest_Api_Admin_User_Name, Rest_Api_Admin_Password
-- **Example curl command :**
-  ```sh
-  curl -H "Content-Type: application/json" --request POST -d '{"Rest_Api_Admin_User_Name":"rest_api_admin_user","Rest_Api_Admin_Password":"rest_api_admin_password"}' http://localhost:3001/jwt | jq '.'
-  ```
-- **Sample Success Response :**
+# Requirements
 
-  ```json
-  {
-    "status": "success",
-    "response": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJib2R5Ijoic3R1ZmYiLCJpYXQiOjE2MDQzNDExNzR9.Um_pFgR3-O9rRBeO7bqvQPQM1EpBWUh5V6ZXuVjqT-4"
-  }
-  ```
+1. Bityoga fabric should be up and running
+2. Node version
+   - Supports node version >=v11.0.0
+   - Tested with v11.0.0
 
-- **Sample Failure Response :**
+# Run Instructions
 
-  ```json
-  {
-    "status": "fail",
-    "error": "Not Authorised - User Name and Password wrong"
-  }
-  ```
+1. ## Clone this repository
 
-### 2) Register User
+   - git clone https://github.com/bityoga/fabric_as_code_restapi.git
 
-- **Api endpoint :** /register
-- **Required Post Data :** User_Name, User_Password, User_Role
-- **Example curl command :**
+2. ## Run npm install
 
-  ```sh
-  curl  -H "Content-Type: application/json" --request POST -d '{"User_Name":"7xyzzgtrtvyp","User_Password":"7xyzzgttrvyp","User_Role":"client"}' -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJib2R5Ijoic3R1ZmYiLCJpYXQiOjE2MDQzNDA3MTR9._F7oqjK7vooX1Tj-FCzHcnT7g7KkLrAaVPNXq3Y1IhM" http://localhost:3001/register |  jq '.
-  ```
+   - cd fabric_as_code_restapi/
+   - #### Set node version
+     - nvm use node v11.0.0 (using nvm)
+   - **Execute Command :** npm install
 
-- **Sample Success Response :**
+3. ## Update fabric ip address in 'smart_energy_app/fabric_node_sdk_helper/network_profile.json'
 
-  ```json
-  {
-    "status": "success",
-    "response": {
-      "User_Name": "test_user2",
-      "User_Password": "test_user2",
-      "User_Role": "client",
-      "User_Private_Key": "-----BEGIN PRIVATE KEY-----\r\nMIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgSSjLV989TX6P8FfN\r\nNrMrymuIV+Wq8/hLFKs/bGTwld2hRANCAAQJbe24E8DAsC6mwKWdX/kNQwI8lO7u\r\npvFerU+FAvCSetJcHaEC3Rq5bcvD5gn6M2EX9CsyGY86PPiJvCJjBKV+\r\n-----END PRIVATE KEY-----\r\n",
-      "User_Public_Key": "-----BEGIN PUBLIC KEY-----\r\nMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAECW3tuBPAwLAupsClnV/5DUMCPJTu\r\n7qbxXq1PhQLwknrSXB2hAt0auW3Lw+YJ+jNhF/QrMhmPOjz4ibwiYwSlfg==\r\n-----END PUBLIC KEY-----\r\n",
-      "User_Enrollment_Certificate": "{\"name\":\"test_user2\",\"mspid\":\"hlfMSP\",\"roles\":null,\"affiliation\":\"\",\"enrollmentSecret\":\"\",\"enrollment\":{\"signingIdentity\":\"eb727214d511ce94a9d77ab11d3aad5ee3b1973d9b00ce3809423ab89ecd1a98\",\"identity\":{\"certificate\":\"-----BEGIN CERTIFICATE-----\\nMIICRjCCAeygAwIBAgIUP9hOKMbIETtIUeGp/V+xgG4eF7cwCgYIKoZIzj0EAwIw\\nXTELMAkGA1UEBhMCVVMxFzAVBgNVBAgTDk5vcnRoIENhcm9saW5hMRQwEgYDVQQK\\nEwtIeXBlcmxlZGdlcjEPMA0GA1UECxMGRmFicmljMQ4wDAYDVQQDEwVvcmdjYTAe\\nFw0yMDExMDIxODQwMDBaFw0yMTExMDIxODQ1MDBaMCYxDzANBgNVBAsTBmNsaWVu\\ndDETMBEGA1UEAwwKdGVzdF91c2VyMjBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IA\\nBAlt7bgTwMCwLqbApZ1f+Q1DAjyU7u6m8V6tT4UC8JJ60lwdoQLdGrlty8PmCfoz\\nYRf0KzIZjzo8+Im8ImMEpX6jgcAwgb0wDgYDVR0PAQH/BAQDAgeAMAwGA1UdEwEB\\n/wQCMAAwHQYDVR0OBBYEFMcgiuXQoQS1EzYteMdC+CbZszzXMB8GA1UdIwQYMBaA\\nFFZt+fT49HhEQbD5w5nwhfpyyupCMF0GCCoDBAUGBwgBBFF7ImF0dHJzIjp7Imhm\\nLkFmZmlsaWF0aW9uIjoiIiwiaGYuRW5yb2xsbWVudElEIjoidGVzdF91c2VyMiIs\\nImhmLlR5cGUiOiJjbGllbnQifX0wCgYIKoZIzj0EAwIDSAAwRQIhAIo+NDygO5xj\\nCMIUEQDr/VyWFObpEIsN22eSq91QM6OnAiAOy1+WOWmPLjGs+NPbON+7kJyad68b\\n+DMfEidaTnbBVA==\\n-----END CERTIFICATE-----\\n\"}}}",
-      "Registered_Timestamp": "2020-11-02T18:45:04.629Z",
-      "registerStatus": "success"
-    }
-  }
-  ```
+   - (For other New App Developers) fabric_node_sdk_helper is available in git repository : https://github.com/bityoga/fabric_node_sdk_helper.git
+   - **update the url ip addresses of orderer, peer2, orgca, tlsca (4 places)**.
+   - update it with your prime manager's ip address
 
-- **Sample Failure Response :**
+4. ## Retrieve hyperledger fabric tls certificates of 'orderer' and 'peer2'
+   #### Through shell script - needs ssh permission
+   - cd smart_energy_app/fabric_node_sdk_helper
+   - In 'smart_energy_app/fabric_node_sdk_helper/get_tls_certificates.sh' Replace **IP_ADDRESS="178.62.207.235"** with your fabric prime manager's ip address
+   - **Execute Command :** bash get_tls_certificates.sh
+   #### (OR) Through Manual scp commands - needs ssh permission
+   - Replace ipaddress in the below scp commands with your fabric prime manager's ip address.
+   - scp -r root@178.62.207.235:/root/hlft-store/orgca/orderer/msp/tls/ca.crt .smart_energy_app/fabric_node_sdk_helper/hlft-store/orderer/tls-msp/tlscacerts/ca.crt
+   - scp -r root@178.62.207.235:/root/hlft-store/orgca/peer2/msp/tls/ca.crt .smart_energy_app/fabric_node_sdk_helper/hlft-store/peer2/tls-msp/tlscacerts/ca.crt
+   #### (OR) Manually edit the following two files - no need of ssh permission
+   - smart_energy_app/fabric_node_sdk_helper/hlft-store/orderer/tls-msp/tlscacerts/ca.crt
+   - smart_energy_app/fabric_node_sdk_helper/hlft-store/peer2/tls-msp/tlscacerts/ca.crt
+5. ## Start App
 
-  ```json
-  {
-    "status": "fail",
-    "response": {
-      "registerStatus": "fail",
-      "registerError": "An identity for the user \"test_user\" already exists in the wallet"
-    }
-  }
-  ```
+   **## Using node ##**
 
-### 3) Query Chaincode
+   - cd fabric_as_code_restapi/
+   - **Execute Command :** node rest_api.js
+   - app will be running in 'localhost' at port 3001
+   - open in browser: http://localhost:3001/
 
-- **Api endpoint :** /query
-- **Required Post Data :** Channel_Name, Chaincode_Name, Chaincode_Function_Name, Chaincode_Function_Json_Arguments
-- **Example curl command :**
-  ```sh
-  curl  -H "Content-Type: application/json" --request POST -d '{"Channel_Name":"appchannel","Chaincode_Name":"energy","Chaincode_Function_Name":"ReadAsset","Chaincode_Function_Json_Arguments":"ark"}' -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJib2R5Ijoic3R1ZmYiLCJpYXQiOjE2MDQzNDA3MTR9._F7oqjK7vooX1Tj-FCzHcnT7g7KkLrAaVPNXq3Y1IhM" http://localhost:3001/query |  jq '.'
-  ```
-- **Sample Success Response :**
+   **## Using "nodemon" (Live reload app on save - No need to restart app everytime - Just refresh browser after every save) ##**
 
-  ```json
-  {
-    "status": "success",
-    "response": {
-      "queryStatus": "success",
-      "queryResponse": {
-        "Balance": "1000",
-        "ID": "ark",
-        "Type": "Initial Credit"
-      }
-    }
-  }
-  ```
+   -**Install Nodemon (if not installed)** - npm install -g nodemon
 
-- **Sample Failure Response :**
+   - cd smart_energy_app/
+   - **Execute Command :** nodemon rest_api.js
+   - app will be running in 'localhost' at port 3001
+   - open in browser: http://localhost:3001/
+   - Now everytime you make some changes to file and save it, the app will automatically reload again. We need to refresh the browser to see the changes.
 
-  ```json
-  {
-    "status": "success",
-    "response": {
-      "queryStatus": "fail",
-      "queryError": "Failed to evaluate transaction: Error: error in simulation: transaction returned with failure: Error: The user arkk does not exist"
-    }
-  }
-  ```
+## Dockerisation
 
-### 4) Invoke Chaincode
+### 1) Build Docker Image
 
-- **Api endpoint :** /invoke
-- **Required Post Data :** Channel_Name, Chaincode_Name, Chaincode_Function_Name, Chaincode_Function_Json_Arguments
-- **Example curl command :**
-  ```sh
-  curl  -H "Content-Type: application/json" --request POST -d '{"Channel_Name":"appchannel","Chaincode_Name":"energy","Chaincode_Function_Name":"TransferBalance","Chaincode_Function_Json_Arguments":"ark,ark2,10,buy_energy"}' -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJib2R5Ijoic3R1ZmYiLCJpYXQiOjE2MDQzNDA3MTR9._F7oqjK7vooX1Tj-FCzHcnT7g7KkLrAaVPNXq3Y1IhM" http://localhost:3001/invoke |  jq '.'
-  ```
-- **Sample Success Response :**
+```sh
+$ git clone https://github.com/bityoga/fabric_as_code_restapi.git
+$ cd fabric_as_code_restapi
+```
 
-  ```json
-  {
-    "status": "success",
-    "response": "{\"invokeStatus\":\"success\",\"invokeResponse\":\"\"}"
-  }
-  ```
+Do step 3 & 4 as said above
 
-- **Sample Failure Response :**
+```sh
+$ docker build --tag rest-api .
+```
 
-  ```json
-  {
-    "status": "success",
-    "response": "{\"invokeStatus\":\"fail\",\"invokeError\":\"Failed to evaluate transaction: Error: No valid responses from any peers. 1 peer error responses:\\n    peer=peer2, status=500, message=error in simulation: transaction returned with failure: Error: The user ark22 does not exist\"}"
-  }
-  ```
+### 2a) Run as a docker container
+
+```sh
+$ docker run -d --name rest-api -p 3001:3001 rest-api:latest
+```
+
+### 2b) Run as a docker service with replicas
+
+```sh
+$ docker service create --name rest-api-service --replicas 1 -p 3001:3001 rest-api:latest
+```
