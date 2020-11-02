@@ -45,11 +45,6 @@ app.use(
 
 app.get("/", (req, res) => res.send("tic Restful Api"));
 
-// let's first add a /secret api endpoint that we will be protecting
-app.get("/secret", isAuthorized, (req, res) => {
-  res.json({ message: "THIS IS SUPER SECRET, DO NOT SHARE!" });
-});
-
 app.post("/jwt", (req, res) => {
   let jsonResponse = {};
   let postRequestData;
