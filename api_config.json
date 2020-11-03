@@ -1,7 +1,7 @@
 {
     "rest_api_port":3001,
-    "fabric_ca_admin_user_name":"ca-admin-orgca",
-    "fabric_ca_admin_password":"orgcapw",
+    "fabric_ca_admin_user_name":"admin1",
+    "fabric_ca_admin_password":"admin1pw",
     "fabric_organisation_msp_name":"hlfMSP",
     "fabric_ca_organisation_name":"orgca",
     "rest_api_admin_user_name":"rest_api_admin_user",
