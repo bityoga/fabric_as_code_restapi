@@ -1,6 +1,7 @@
 # Reference : https://github.com/mhart/alpine-node#example-dockerfile-for-your-own-nodejs-project
 # This stage installs our modules
 FROM mhart/alpine-node:12
+LABEL stage=rest-api-stage1-docker-builder
 WORKDIR /app
 COPY package.json package-lock.json ./
 
@@ -12,6 +13,7 @@ RUN npm ci --prod
 
 # Then we copy over the modules from above onto a `slim` image
 FROM mhart/alpine-node:slim-12
+LABEL stage=rest-api-stage2-docker-builder
 
 # If possible, run your container using `docker run --init`
 # Otherwise, you can use `tini`:
