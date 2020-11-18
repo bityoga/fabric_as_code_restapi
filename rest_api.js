@@ -143,13 +143,8 @@ app.post("/query", isAuthorized, async (req, res) => {
   try {
     postRequestData = req.body;
     console.log(postRequestData);
-    let args = JSON.parse(postRequestData["Chaincode_Function_Json_Arguments"]);
-    console.log(args);
-    args.unshift(postRequestData["Chaincode_Function_Name"]);
-    args.unshift(postRequestData["Chaincode_Name"]);
-    args.unshift(postRequestData["Channel_Name"]);
-    args.unshift(apiConfigJson["rest_api_admin_user_name"]);
-    let fabricQueryResult = await querychaincode.apply(this, args);
+    let functionArguments = generate_function_arguments(postRequestData);
+    let fabricQueryResult = await querychaincode.apply(this, functionArguments);
     jsonResponse["status"] = "success";
     jsonResponse["response"] = JSON.parse(fabricQueryResult);
   } catch (e) {
@@ -168,13 +163,11 @@ app.post("/invoke", isAuthorized, async (req, res) => {
     postRequestData = req.body;
     console.log(postRequestData);
 
-    let args = JSON.parse(postRequestData["Chaincode_Function_Json_Arguments"]);
-    console.log(args);
-    args.unshift(postRequestData["Chaincode_Function_Name"]);
-    args.unshift(postRequestData["Chaincode_Name"]);
-    args.unshift(postRequestData["Channel_Name"]);
-    args.unshift(apiConfigJson["rest_api_admin_user_name"]);
-    let fabricInvokeResult = await invokechaincode.apply(this, args);
+    let functionArguments = generate_function_arguments(postRequestData);
+    let fabricInvokeResult = await invokechaincode.apply(
+      this,
+      functionArguments
+    );
     jsonResponse["status"] = "success";
     jsonResponse["response"] = fabricInvokeResult;
   } catch (e) {
@@ -185,6 +178,21 @@ app.post("/invoke", isAuthorized, async (req, res) => {
     res.json(jsonResponse);
   }
 });
+
+function generate_function_arguments(postRequestData) {
+  let functionArguments = [];
+  let chaincodeFunctionArguments = JSON.parse(
+    postRequestData["Chaincode_Function_Json_Arguments"]
+  );
+  console.log("chaincodeFunctionArguments");
+  console.log(chaincodeFunctionArguments);
+  functionArguments.unshift(chaincodeFunctionArguments);
+  functionArguments.unshift(postRequestData["Chaincode_Function_Name"]);
+  functionArguments.unshift(postRequestData["Chaincode_Name"]);
+  functionArguments.unshift(postRequestData["Channel_Name"]);
+  functionArguments.unshift(apiConfigJson["rest_api_admin_user_name"]);
+  return functionArguments;
+}
 
 function isAuthorized(req, res, next) {
   if (typeof req.headers.authorization !== "undefined") {
