@@ -181,16 +181,25 @@ app.post("/invoke", isAuthorized, async (req, res) => {
 
 function generate_function_arguments(postRequestData) {
   let functionArguments = [];
+  functionArguments.push(postRequestData["Chaincode_Function_Name"]);
+  functionArguments.push(postRequestData["Chaincode_Name"]);
+  functionArguments.push(postRequestData["Channel_Name"]);
+  functionArguments.push(apiConfigJson["rest_api_admin_user_name"]);
+
   let chaincodeFunctionArguments = JSON.parse(
     postRequestData["Chaincode_Function_Json_Arguments"]
   );
   console.log("chaincodeFunctionArguments");
   console.log(chaincodeFunctionArguments);
-  functionArguments.unshift(chaincodeFunctionArguments);
-  functionArguments.unshift(postRequestData["Chaincode_Function_Name"]);
-  functionArguments.unshift(postRequestData["Chaincode_Name"]);
-  functionArguments.unshift(postRequestData["Channel_Name"]);
-  functionArguments.unshift(apiConfigJson["rest_api_admin_user_name"]);
+
+  if (Array.isArray(chaincodeFunctionArguments)) {
+    functionArguments.push(...chaincodeFunctionArguments);
+  } else {
+    functionArguments.push(chaincodeFunctionArguments);
+  }
+  console.log("functionArguments");
+  console.log(functionArguments);
+
   return functionArguments;
 }
 
