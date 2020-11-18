@@ -143,7 +143,8 @@ app.post("/query", isAuthorized, async (req, res) => {
   try {
     postRequestData = req.body;
     console.log(postRequestData);
-    let args = postRequestData["Chaincode_Function_Json_Arguments"].split(",");
+    let args = JSON.parse(postRequestData["Chaincode_Function_Json_Arguments"]);
+    console.log(args);
     args.unshift(postRequestData["Chaincode_Function_Name"]);
     args.unshift(postRequestData["Chaincode_Name"]);
     args.unshift(postRequestData["Channel_Name"]);
@@ -166,10 +167,9 @@ app.post("/invoke", isAuthorized, async (req, res) => {
   try {
     postRequestData = req.body;
     console.log(postRequestData);
-    console.log(
-      postRequestData["Chaincode_Function_Json_Arguments"].split(",")
-    );
-    let args = postRequestData["Chaincode_Function_Json_Arguments"].split(",");
+
+    let args = JSON.parse(postRequestData["Chaincode_Function_Json_Arguments"]);
+    console.log(args);
     args.unshift(postRequestData["Chaincode_Function_Name"]);
     args.unshift(postRequestData["Chaincode_Name"]);
     args.unshift(postRequestData["Channel_Name"]);
