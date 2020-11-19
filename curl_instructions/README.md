@@ -74,7 +74,7 @@
 - **Required Post Data :** Channel_Name, Chaincode_Name, Chaincode_Function_Name, Chaincode_Function_Json_Arguments
 - **Example curl command :**
   ```sh
-  curl  -H "Content-Type: application/json" --request POST -d '{"Channel_Name":"appchannel","Chaincode_Name":"energy","Chaincode_Function_Name":"ReadAsset","Chaincode_Function_Json_Arguments":"ark"}' -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJib2R5Ijoic3R1ZmYiLCJpYXQiOjE2MDQzNDA3MTR9._F7oqjK7vooX1Tj-FCzHcnT7g7KkLrAaVPNXq3Y1IhM" http://localhost:3001/query |  jq '.'
+  curl  -H "Content-Type: application/json" --request POST -d '{"Channel_Name":"appchannel","Chaincode_Name":"energy","Chaincode_Function_Name":"ReadAsset","Chaincode_Function_Json_Arguments":["[\"ark\"]"]}' -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJib2R5Ijoic3R1ZmYiLCJpYXQiOjE2MDQzNDA3MTR9._F7oqjK7vooX1Tj-FCzHcnT7g7KkLrAaVPNXq3Y1IhM" http://localhost:3001/query |  jq '.'
   ```
 - **Sample Success Response :**
 
@@ -110,7 +110,7 @@
 - **Required Post Data :** Channel_Name, Chaincode_Name, Chaincode_Function_Name, Chaincode_Function_Json_Arguments
 - **Example curl command :**
   ```sh
-  curl  -H "Content-Type: application/json" --request POST -d '{"Channel_Name":"appchannel","Chaincode_Name":"energy","Chaincode_Function_Name":"TransferBalance","Chaincode_Function_Json_Arguments":"ark,ark2,10,buy_energy"}' -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJib2R5Ijoic3R1ZmYiLCJpYXQiOjE2MDQzNDA3MTR9._F7oqjK7vooX1Tj-FCzHcnT7g7KkLrAaVPNXq3Y1IhM" http://localhost:3001/invoke |  jq '.'
+  curl  -H "Content-Type: application/json" --request POST -d '{"Channel_Name":"appchannel","Chaincode_Name":"energy","Chaincode_Function_Name":"TransferBalance","Chaincode_Function_Json_Arguments":["[\"ark\",\"ark2\",\"10\",\"Buy Energy\"]"]}' -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJib2R5Ijoic3R1ZmYiLCJpYXQiOjE2MDQzNDA3MTR9._F7oqjK7vooX1Tj-FCzHcnT7g7KkLrAaVPNXq3Y1IhM" http://localhost:3001/invoke |  jq '.'
   ```
 - **Sample Success Response :**
 
