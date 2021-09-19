@@ -42,7 +42,7 @@
 
   "orderers": {
     "orderer": {
-      "url": "grpcs://157.230.182.168:8053",
+      "url": "grpcs://164.90.186.112:8053",
       "tlsCACerts": {
         "path": "./hlft-store/orderer/tls-msp/tlscacerts/ca.crt"
       },
@@ -54,7 +54,7 @@
 
   "peers": {
     "peer2": {
-      "url": "grpcs://157.230.182.168:8055",
+      "url": "grpcs://164.90.186.112:8055",
 
       "tlsCACerts": {
         "path": "./hlft-store/peer2/tls-msp/tlscacerts/ca.crt"
@@ -67,7 +67,7 @@
   "certificateAuthorities": {
     "orgca": {
       "caName": "orgca",
-      "url": "https://157.230.182.168:8052",
+      "url": "https://164.90.186.112:8052",
       "httpOptions": {
         "verify": false
       }
@@ -75,7 +75,7 @@
 
     "tlsca": {
       "caName": "tlsca",
-      "url": "https://157.230.182.168:8081",
+      "url": "https://164.90.186.112:8081",
       "httpOptions": {
         "verify": false
       }

@@ -4,6 +4,7 @@ const path = require("path");
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const bodyParser = require("body-parser");
+const https = require("https");
 var crypto = require("crypto");
 
 // import fabric node sdk helper functions
@@ -18,6 +19,7 @@ const { sqlite_json_insert } = require("./db_query");
 
 const API_CONFIG_FILE = "api_config.json";
 const DB_NAME = "rest_api_db.sqlite";
+const WALLET_DIRECTORY = "./wallet";
 // Global variable to store the api config from file
 let apiConfigJson;
 
@@ -35,9 +37,9 @@ try {
 // Declare a express app object
 const app = express();
 // Body-parser - to support JSON-encoded bodies
-app.use(bodyParser.json());
+app.use(express.json());
 app.use(
-  bodyParser.urlencoded({
+  express.urlencoded({
     // to support URL-encoded bodies
     extended: true,
   })
@@ -238,8 +240,12 @@ function isAuthorized(req, res, next) {
   }
 }
 
-async function main() {
-  try {
+async function enrollAdminUserForFabricClient() {
+  let adminWalletDirectory = WALLET_DIRECTORY + "/admin";
+  if (fs.existsSync(adminWalletDirectory)) {
+    console.log("Admin User wallet exists.");
+  } else {
+    console.log("Admin User wallet Directory does not exists.");
     const admin_enroll_status = await enrollAdmin(
       apiConfigJson["fabric_ca_admin_user_name"],
       apiConfigJson["fabric_ca_admin_password"],
@@ -247,17 +253,62 @@ async function main() {
       apiConfigJson["fabric_ca_organisation_name"]
     );
     console.log(admin_enroll_status);
+  }
+}
+
+async function registerRestApiAdminUser() {
+  let restApiAdminUserWalletDirectory =
+    WALLET_DIRECTORY + "/" + apiConfigJson["rest_api_admin_user_name"];
+  if (fs.existsSync(restApiAdminUserWalletDirectory)) {
+    console.log("Rest Api Admin User wallet Directory  exists.");
+  } else {
+    console.log("Rest Api Admin User wallet Directory does not exist.");
     const apiAdminUserRegisterStatus = await registerUser(
       apiConfigJson["rest_api_admin_user_name"],
       apiConfigJson["rest_api_admin_password"],
       apiConfigJson["rest_api_admin_user_role"]
     );
     console.log(apiAdminUserRegisterStatus);
+  }
+}
+
+function startHttpsServer() {
+  // Setting up https
+  var options = {
+    key: fs.readFileSync(
+      "./fabric_node_sdk_helper/hlft-store/orgca/admin1/msp/keystore/server.key"
+    ),
+    cert: fs.readFileSync(
+      "./fabric_node_sdk_helper/hlft-store/orgca/admin1/msp/signcerts/cert.pem"
+    ),
+    ca: fs.readFileSync(
+      "./fabric_node_sdk_helper/hlft-store/orgca/admin1/msp/cacerts/orgca-7054.pem"
+    ),
+  };
+  const port = apiConfigJson["rest_api_port"];
+  var server = https.createServer(options, app);
+  server.listen(port, function () {
+    console.log(`Rest Api listening on port ${port}!`);
+  });
+}
+
+function startHttpServer() {
+  const port = apiConfigJson["rest_api_port"];
+  app.listen(port, () => console.log(`Rest Api listening on port ${port}!`));
+}
+
+async function main() {
+  try {
+    await enrollAdminUserForFabricClient();
+    await registerRestApiAdminUser();
   } catch (error) {
     throw Error("API Start Error - Error while enrolling admin", e);
   } finally {
-    const port = apiConfigJson["rest_api_port"];
-    app.listen(port, () => console.log(`Rest Api listening on port ${port}!`));
+    if (apiConfigJson["enable_https"] === "y") {
+      startHttpsServer();
+    } else {
+      startHttpServer();
+    }
   }
 }
 
