@@ -24,7 +24,10 @@
      - nvm use node v11.0.0 (using nvm)
    - **Execute Command :** npm install
 
-3. ## Update fabric ip address in 'smart_energy_app/fabric_node_sdk_helper/network_profile.json'
+3. ## Configure rest_api prameters (Only if necessary)
+   - Open [api_config.json](api_config.json)
+   - Configure parameters like ***"rest_api_admin_user_name", "rest_api_admin_password","enable_https"***
+3. ## Update fabric ip address in 'fabric_as_code_restapi/fabric_node_sdk_helper/network_profile.json'
 
    - (For other New App Developers) fabric_node_sdk_helper is available in git repository : https://github.com/bityoga/fabric_node_sdk_helper.git
    - **update the url ip addresses of orderer, peer2, orgca, tlsca (4 places)**.
@@ -32,16 +35,26 @@
 
 4. ## Retrieve hyperledger fabric tls certificates of 'orderer' and 'peer2'
    #### Through shell script - needs ssh permission
-   - cd smart_energy_app/fabric_node_sdk_helper
-   - In 'smart_energy_app/fabric_node_sdk_helper/get_tls_certificates.sh' Replace **IP_ADDRESS="178.62.207.235"** with your fabric prime manager's ip address
+   - cd fabric_as_code_restapi/fabric_node_sdk_helper
+   - In 'fabric_as_code_restapi/fabric_node_sdk_helper/get_tls_certificates.sh' Replace **IP_ADDRESS="178.62.207.235"** with your fabric prime manager's ip address
    - **Execute Command :** bash get_tls_certificates.sh
    #### (OR) Through Manual scp commands - needs ssh permission
    - Replace ipaddress in the below scp commands with your fabric prime manager's ip address.
-   - scp -r root@178.62.207.235:/root/hlft-store/orgca/orderer/msp/tls/ca.crt .smart_energy_app/fabric_node_sdk_helper/hlft-store/orderer/tls-msp/tlscacerts/ca.crt
-   - scp -r root@178.62.207.235:/root/hlft-store/orgca/peer2/msp/tls/ca.crt .smart_energy_app/fabric_node_sdk_helper/hlft-store/peer2/tls-msp/tlscacerts/ca.crt
+   - scp -r root@178.62.207.235:/root/hlft-store/orgca/orderer/msp/tls/ca.crt .fabric_as_code_restapi/fabric_node_sdk_helper/hlft-store/orderer/tls-msp/tlscacerts/ca.crt
+   - scp -r root@178.62.207.235:/root/hlft-store/orgca/peer2/msp/tls/ca.crt .fabric_as_code_restapi/fabric_node_sdk_helper/hlft-store/peer2/tls-msp/tlscacerts/ca.crt
+   
+   ## For Https support
+   - scp -r root@178.62.207.235:/root/hlft-store/orgca/admin1/msp/cacerts/orgca-7054.pem .fabric_as_code_restapi/fabric_node_sdk_helper/hlft-store/orgca/admin1/msp/cacerts/orgca-7054.pem
+   - scp -r root@178.62.207.235:/root/hlft-store/orgca/admin1/msp/signcerts/cert.pem .fabric_as_code_restapi/fabric_node_sdk_helper/hlft-store/orgca/admin1/msp/signcerts/cert.pem
+   - scp -r root@$178.62.207.235:$(ssh root@$178.62.207.235 ls -dtr1 /root/hlft-store/orgca/admin1/msp/keystore/* | tail -1) .fabric_as_code_restapi/fabric_node_sdk_helper/hlft-store/orgca/admin1/msp/keystore/server.key
    #### (OR) Manually edit the following two files - no need of ssh permission
-   - smart_energy_app/fabric_node_sdk_helper/hlft-store/orderer/tls-msp/tlscacerts/ca.crt
-   - smart_energy_app/fabric_node_sdk_helper/hlft-store/peer2/tls-msp/tlscacerts/ca.crt
+   - fabric_as_code_restapi/fabric_node_sdk_helper/hlft-store/orderer/tls-msp/tlscacerts/ca.crt
+   - fabric_as_code_restapi/fabric_node_sdk_helper/hlft-store/peer2/tls-msp/tlscacerts/ca.crt
+
+   ## For https support
+   - fabric_as_code_restapi/fabric_node_sdk_helper/hlft-store/orgca/admin1/msp/cacerts/orgca-7054.pem
+   - fabric_as_code_restapi/fabric_node_sdk_helper/hlft-store/orgca/admin1/msp/signcerts/cert.pem
+   - fabric_as_code_restapi/fabric_node_sdk_helper/hlft-store/orgca/admin1/msp/keystore/server.key
 5. ## Start App
 
    **## Using node ##**
@@ -55,7 +68,7 @@
 
    -**Install Nodemon (if not installed)** - npm install -g nodemon
 
-   - cd smart_energy_app/
+   - cd fabric_as_code_restapi/
    - **Execute Command :** nodemon rest_api.js
    - app will be running in 'localhost' at port 3001
    - open in browser: http://localhost:3001/
