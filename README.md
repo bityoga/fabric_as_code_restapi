@@ -2,7 +2,7 @@
 
 # Rest API Usage Instructions
 
-[Rest API Usage Instructions with curl examples](curl_instructions/README.md)
+[Rest API Usage Instructions with curl examples](https://github.com/bityoga/fabric_as_code_restapi/blob/main/curl_instructions/README.md)
 
 # Requirements
 
@@ -24,7 +24,7 @@
    - **Execute Command :** npm install
 
 3. ## Configure rest_api prameters (Only if necessary)
-   - Open [api_config.json](api_config.json)
+   - Open [api_config.json](https://github.com/bityoga/fabric_as_code_restapi/blob/main/api_config.json)
    - Configure parameters like ***"rest_api_admin_user_name", "rest_api_admin_password","enable_https"***
 3. ## Update fabric ip address in 'fabric_as_code_restapi/fabric_node_sdk_helper/network_profile.json'
 
