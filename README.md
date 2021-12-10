@@ -59,21 +59,20 @@
    - fabric_as_code_restapi/fabric_node_sdk_helper/hlft-store/orgca/admin1/msp/keystore/server.key
 5. ## Start App
 
-   **## Using node ##**
+   ### Using node
 
    - cd fabric_as_code_restapi/
    - **Execute Command :** node rest_api.js
-   - app will be running in 'localhost' at port 3001
-   - open in browser: http://localhost:3001/
+   - app will be running in 'LOCALHOST_OR_YOUR_MASTER_MACHINE_IP_ADDRESS' at port 3001
+   - open in browser: http://LOCALHOST_OR_YOUR_MASTER_MACHINE_IP_ADDRESS:3001/
 
-   **## Using "nodemon" (Live reload app on save - No need to restart app everytime - Just refresh browser after every save) ##**
+   ### Using "nodemon" (Live reload app on save - No need to restart app everytime - Just refresh browser after every save)
 
-   -**Install Nodemon (if not installed)** - npm install -g nodemon
-
+   - **Install Nodemon (if not installed)** - npm install -g nodemon
    - cd fabric_as_code_restapi/
    - **Execute Command :** nodemon rest_api.js
-   - app will be running in 'localhost' at port 3001
-   - open in browser: http://localhost:3001/
+   - app will be running in 'LOCALHOST_OR_YOUR_MASTER_MACHINE_IP_ADDRESS' at port 3001
+   - open in browser: http://LOCALHOST_OR_YOUR_MASTER_MACHINE_IP_ADDRESS:3001/
    - Now everytime you make some changes to file and save it, the app will automatically reload again. We need to refresh the browser to see the changes.
 
 ## Dockerisation
