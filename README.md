@@ -20,8 +20,7 @@
 2. ## Run npm install
 
    - cd fabric_as_code_restapi/
-   - #### Set node version
-     - nvm use node v11.0.0 (using nvm)
+   - **Set node version:** nvm use node v11.0.0 (using nvm)
    - **Execute Command :** npm install
 
 3. ## Configure rest_api prameters (Only if necessary)
