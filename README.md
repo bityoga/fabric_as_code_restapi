@@ -38,15 +38,24 @@
    - In 'fabric_as_code_restapi/fabric_node_sdk_helper/get_tls_certificates.sh' Replace **IP_ADDRESS="LOCALHOST_OR_YOUR_MASTER_MACHINE_IP_ADDRESS"** with your fabric prime manager's ip address
    - **Execute Command :** ```bash get_tls_certificates.sh```
    #### (OR) Through Manual scp commands - needs ssh permission
-   - Replace ipaddress in the below scp commands with your fabric prime manager's ip address.
-   - ```scp -r root@LOCALHOST_OR_YOUR_MASTER_MACHINE_IP_ADDRESS:/root/hlft-store/orgca/orderer/msp/tls/ca.crt .fabric_as_code_restapi/fabric_node_sdk_helper/hlft-store/orderer/tls-msp/tlscacerts/ca.crt```
-   - ```scp -r root@LOCALHOST_OR_YOUR_MASTER_MACHINE_IP_ADDRESS:/root/hlft-store/orgca/peer2/msp/tls/ca.crt .fabric_as_code_restapi/fabric_node_sdk_helper/hlft-store/peer2/tls-msp/tlscacerts/ca.crt```
+   ##### (Replace ipaddress in the below scp commands with your fabric prime manager's ip address.)
+   ```
+   scp -r root@LOCALHOST_OR_YOUR_MASTER_MACHINE_IP_ADDRESS:/root/hlft-store/orgca/orderer/msp/tls/ca.crt .fabric_as_code_restapi/fabric_node_sdk_helper/hlft-store/orderer/tls-msp/tlscacerts/ca.crt
+   ```
+   ```
+   scp -r root@LOCALHOST_OR_YOUR_MASTER_MACHINE_IP_ADDRESS:/root/hlft-store/orgca/peer2/msp/tls/ca.crt .fabric_as_code_restapi/fabric_node_sdk_helper/hlft-store/peer2/tls-msp/tlscacerts/ca.crt
+   ```
    
    ##### For Https support
-   - ```scp -r root@LOCALHOST_OR_YOUR_MASTER_MACHINE_IP_ADDRESS:/root/hlft-store/orgca/admin1/msp/cacerts/orgca-7054.pem .fabric_as_code_restapi/fabric_node_sdk_helper/hlft-store/orgca/admin1/msp/cacerts/orgca-7054.pem```
-   - ```scp -r root@LOCALHOST_OR_YOUR_MASTER_MACHINE_IP_ADDRESS:/root/hlft-store/orgca/admin1/msp/signcerts/cert.pem .fabric_as_code_restapi/fabric_node_sdk_helper/hlft-store/orgca/admin1/msp/signcerts/cert.pem```
-   - ```scp -r root@$LOCALHOST_OR_YOUR_MASTER_MACHINE_IP_ADDRESS:$(ssh root@$LOCALHOST_OR_YOUR_MASTER_MACHINE_IP_ADDRESS ls -dtr1 /root/hlft-store/orgca/admin1/msp/keystore/* | tail -1) .fabric_as_code_restapi/fabric_node_sdk_helper/hlft-store/orgca/admin1/msp/keystore/server.key```
-
+     ```
+     scp -r root@LOCALHOST_OR_YOUR_MASTER_MACHINE_IP_ADDRESS:/root/hlft-store/orgca/admin1/msp/cacerts/orgca-7054.pem .fabric_as_code_restapi/fabric_node_sdk_helper/hlft-store/orgca/admin1/msp/cacerts/orgca-7054.pem
+     ```
+     ```
+     scp -r root@LOCALHOST_OR_YOUR_MASTER_MACHINE_IP_ADDRESS:/root/hlft-store/orgca/admin1/msp/signcerts/cert.pem .fabric_as_code_restapi/fabric_node_sdk_helper/hlft-store/orgca/admin1/msp/signcerts/cert.pem
+     ```
+     ```
+     scp -r root@$LOCALHOST_OR_YOUR_MASTER_MACHINE_IP_ADDRESS:$(ssh root@$LOCALHOST_OR_YOUR_MASTER_MACHINE_IP_ADDRESS ls -dtr1 /root/hlft-store/orgca/admin1/msp/keystore/* | tail -1) .fabric_as_code_restapi/fabric_node_sdk_helper/hlft-store/orgca/admin1/msp/keystore/server.key
+     ```
 
    #### (OR) Manually edit the following two files - no need of ssh permission
    - fabric_as_code_restapi/fabric_node_sdk_helper/hlft-store/orderer/tls-msp/tlscacerts/ca.crt
