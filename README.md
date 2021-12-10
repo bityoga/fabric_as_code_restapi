@@ -34,18 +34,18 @@
 
 4. ## Retrieve hyperledger fabric tls certificates of 'orderer' and 'peer2'
    #### Through shell script - needs ssh permission
-   - cd fabric_as_code_restapi/fabric_node_sdk_helper
-   - In 'fabric_as_code_restapi/fabric_node_sdk_helper/get_tls_certificates.sh' Replace **IP_ADDRESS="178.62.207.235"** with your fabric prime manager's ip address
-   - **Execute Command :** bash get_tls_certificates.sh
+   - ```cd fabric_as_code_restapi/fabric_node_sdk_helper```
+   - In 'fabric_as_code_restapi/fabric_node_sdk_helper/get_tls_certificates.sh' Replace **IP_ADDRESS="LOCALHOST_OR_YOUR_MASTER_MACHINE_IP_ADDRESS"** with your fabric prime manager's ip address
+   - **Execute Command :** ```bash get_tls_certificates.sh```
    #### (OR) Through Manual scp commands - needs ssh permission
    - Replace ipaddress in the below scp commands with your fabric prime manager's ip address.
-   - scp -r root@178.62.207.235:/root/hlft-store/orgca/orderer/msp/tls/ca.crt .fabric_as_code_restapi/fabric_node_sdk_helper/hlft-store/orderer/tls-msp/tlscacerts/ca.crt
-   - scp -r root@178.62.207.235:/root/hlft-store/orgca/peer2/msp/tls/ca.crt .fabric_as_code_restapi/fabric_node_sdk_helper/hlft-store/peer2/tls-msp/tlscacerts/ca.crt
+   - ```scp -r root@LOCALHOST_OR_YOUR_MASTER_MACHINE_IP_ADDRESS:/root/hlft-store/orgca/orderer/msp/tls/ca.crt .fabric_as_code_restapi/fabric_node_sdk_helper/hlft-store/orderer/tls-msp/tlscacerts/ca.crt```
+   - ```scp -r root@LOCALHOST_OR_YOUR_MASTER_MACHINE_IP_ADDRESS:/root/hlft-store/orgca/peer2/msp/tls/ca.crt .fabric_as_code_restapi/fabric_node_sdk_helper/hlft-store/peer2/tls-msp/tlscacerts/ca.crt```
    
    ##### For Https support
-   - scp -r root@178.62.207.235:/root/hlft-store/orgca/admin1/msp/cacerts/orgca-7054.pem .fabric_as_code_restapi/fabric_node_sdk_helper/hlft-store/orgca/admin1/msp/cacerts/orgca-7054.pem
-   - scp -r root@178.62.207.235:/root/hlft-store/orgca/admin1/msp/signcerts/cert.pem .fabric_as_code_restapi/fabric_node_sdk_helper/hlft-store/orgca/admin1/msp/signcerts/cert.pem
-   - scp -r root@$178.62.207.235:$(ssh root@$178.62.207.235 ls -dtr1 /root/hlft-store/orgca/admin1/msp/keystore/* | tail -1) .fabric_as_code_restapi/fabric_node_sdk_helper/hlft-store/orgca/admin1/msp/keystore/server.key
+   - ```scp -r root@LOCALHOST_OR_YOUR_MASTER_MACHINE_IP_ADDRESS:/root/hlft-store/orgca/admin1/msp/cacerts/orgca-7054.pem .fabric_as_code_restapi/fabric_node_sdk_helper/hlft-store/orgca/admin1/msp/cacerts/orgca-7054.pem```
+   - ```scp -r root@LOCALHOST_OR_YOUR_MASTER_MACHINE_IP_ADDRESS:/root/hlft-store/orgca/admin1/msp/signcerts/cert.pem .fabric_as_code_restapi/fabric_node_sdk_helper/hlft-store/orgca/admin1/msp/signcerts/cert.pem```
+   - ```scp -r root@$LOCALHOST_OR_YOUR_MASTER_MACHINE_IP_ADDRESS:$(ssh root@$LOCALHOST_OR_YOUR_MASTER_MACHINE_IP_ADDRESS ls -dtr1 /root/hlft-store/orgca/admin1/msp/keystore/* | tail -1) .fabric_as_code_restapi/fabric_node_sdk_helper/hlft-store/orgca/admin1/msp/keystore/server.key```
 
 
    #### (OR) Manually edit the following two files - no need of ssh permission
@@ -60,17 +60,17 @@
 
    ### Using node
 
-   - cd fabric_as_code_restapi/
-   - **Execute Command :** node rest_api.js
-   - app will be running in 'LOCALHOST_OR_YOUR_MASTER_MACHINE_IP_ADDRESS' at port 3001
+   - ```cd fabric_as_code_restapi/```
+   - **Execute Command :** ```node rest_api.js```
+   - app will be running in 'LOCALHOST_OR_YOUR_MASTER_MACHINE_IP_ADDRESS' at port **3001**
    - open in browser: http://LOCALHOST_OR_YOUR_MASTER_MACHINE_IP_ADDRESS:3001/
 
    ### Using "nodemon" (Live reload app on save - No need to restart app everytime - Just refresh browser after every save)
 
-   - **Install Nodemon (if not installed)** - npm install -g nodemon
-   - cd fabric_as_code_restapi/
-   - **Execute Command :** nodemon rest_api.js
-   - app will be running in 'LOCALHOST_OR_YOUR_MASTER_MACHINE_IP_ADDRESS' at port 3001
+   - **Install Nodemon (if not installed)** - ```npm install -g nodemon```
+   - ```cd fabric_as_code_restapi/```
+   - **Execute Command :** ```nodemon rest_api.js```
+   - app will be running in 'LOCALHOST_OR_YOUR_MASTER_MACHINE_IP_ADDRESS' at port **3001**
    - open in browser: http://LOCALHOST_OR_YOUR_MASTER_MACHINE_IP_ADDRESS:3001/
    - Now everytime you make some changes to file and save it, the app will automatically reload again. We need to refresh the browser to see the changes.
 
