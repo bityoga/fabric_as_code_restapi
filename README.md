@@ -15,7 +15,7 @@
 
 1. ## Clone this repository
 
-   - git clone https://github.com/bityoga/fabric_as_code_restapi.git
+   ```git clone https://github.com/bityoga/fabric_as_code_restapi.git```
 
 2. ## Run npm install
 
